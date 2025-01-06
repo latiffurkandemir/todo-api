@@ -43,4 +43,14 @@ public abstract class BaseEntity implements Serializable {
     @Column(insertable = false, nullable = false)
     private String updatedBy;
 
+    @PrePersist
+    public void prePersist() {
+        if (this.createdBy == null) {
+            this.createdBy = "default";
+        }
+        if (this.createdAt == null) {
+            this.createdAt = LocalDateTime.now();
+        }
+    }
+
 }
