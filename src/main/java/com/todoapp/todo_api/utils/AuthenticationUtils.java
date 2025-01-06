@@ -1,12 +1,12 @@
-package com.todoapp.todo_api.users;
+package com.todoapp.todo_api.utils;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-public class AutenticationName {
+public class AuthenticationUtils {
 
-    private AutenticationName() {
-        throw new UnsupportedOperationException("This utility class and cannot be instantiated");
+    private AuthenticationUtils() {
+        throw new UnsupportedOperationException("This is a utility class cannot be instantiated");
     }
 
 
