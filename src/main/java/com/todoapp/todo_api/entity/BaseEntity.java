@@ -1,5 +1,6 @@
 package com.todoapp.todo_api.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,6 +20,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @ToString
+@JsonIgnoreProperties(value = {"created_at", "created_by", "update_at", "updated_by"})
 public abstract class BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -28,19 +30,19 @@ public abstract class BaseEntity implements Serializable {
     private Long id;
 
     @CreatedDate
-    @Column(updatable = false, nullable = false)
+    @Column(name = "created_at", updatable = false, nullable = false)
     private LocalDateTime createdAt;
 
     @CreatedBy
-    @Column(updatable = false, nullable = false)
+    @Column(name = "created_by", updatable = false, nullable = false)
     private String createdBy;
 
     @LastModifiedDate
-    @Column(insertable = false, nullable = false)
+    @Column(name = "updated_at", insertable = false, nullable = false)
     private LocalDateTime updatedAt;
 
     @LastModifiedBy
-    @Column(insertable = false, nullable = false)
+    @Column(name = "updated_by", insertable = false, nullable = false)
     private String updatedBy;
 
     @PrePersist
