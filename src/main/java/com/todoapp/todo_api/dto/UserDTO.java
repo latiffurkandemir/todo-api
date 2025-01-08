@@ -1,5 +1,6 @@
 package com.todoapp.todo_api.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
@@ -26,6 +27,7 @@ public class UserDTO extends BaseDTO {
     @Size(min = 8, max = 20, message = "{user.password.validation.constraints.Size.message}")
     @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$",
             message = "{user.password.validation.constraints.Pattern.message}")
+    @JsonIgnore
     private String password;
 
 
