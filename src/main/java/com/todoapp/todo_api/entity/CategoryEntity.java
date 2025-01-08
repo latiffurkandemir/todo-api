@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CategoryEntity {
+public class CategoryEntity extends BaseEntity{
 
     @Column(name = "category_name")
     private String name;
