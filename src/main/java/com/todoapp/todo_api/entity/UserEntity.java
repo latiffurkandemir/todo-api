@@ -12,6 +12,7 @@ import java.util.List;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class UserEntity {
 
     @Column(name = "username")
@@ -20,6 +21,7 @@ public class UserEntity {
     @Column(name = "email")
     private String email;
 
+    @ToString.Exclude
     @Column(name = "password")
     private String password;
 

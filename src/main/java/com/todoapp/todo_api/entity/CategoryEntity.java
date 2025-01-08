@@ -12,6 +12,7 @@ import java.util.List;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class CategoryEntity {
 
     @Column(name = "category_name")

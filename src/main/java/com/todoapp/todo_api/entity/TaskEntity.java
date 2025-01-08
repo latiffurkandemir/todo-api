@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class TaskEntity {
 
     @Column(name = "title")
@@ -36,6 +37,8 @@ public class TaskEntity {
     @JoinColumn(name = "category_id")
     private CategoryEntity category;
 
+    @Column(name = "is_deleted")
+    private boolean isDeleted = false;
 
     @PrePersist
     public void setDefaultStatus() {
