@@ -15,7 +15,8 @@ public class UserMapper {
         user.setId(userDTO.getId());
         user.setCreatedAt(userDTO.getCreatedAt());
         user.setUpdatedAt(userDTO.getUpdatedAt());
-        user.setUsername(userDTO.getUsername());
+        user.setFirstName(userDTO.getFirstName());
+        user.setLastName(userDTO.getLastName());
         user.setEmail(userDTO.getEmail());
         user.setPassword(encodedPassword);
 
@@ -29,7 +30,8 @@ public class UserMapper {
         userDTO.setId(user.getId());
         userDTO.setCreatedAt(user.getCreatedAt());
         userDTO.setUpdatedAt(user.getUpdatedAt());
-        userDTO.setUsername(user.getUsername());
+        userDTO.setFirstName(user.getFirstName());
+        userDTO.setLastName(user.getLastName());
         userDTO.setEmail(user.getEmail());
 
         return userDTO;

@@ -14,9 +14,13 @@ import lombok.*;
 @Builder
 public class UserDTO extends BaseDTO {
 
-    @NotEmpty(message = "{user.username.validation.constraints.NotEmpty.message}")
-    @Size(min = 5, max = 15, message = "{user.username.validation.constraints.Size.message}")
-    private String username;
+    @NotEmpty(message = "{user.firstName.validation.constraints.NotEmpty.message}")
+    @Size(min = 2, max = 50, message = "{user.firstName.validation.constraints.Size.message}")
+    private String firstName;
+
+    @NotEmpty(message = "{user.lastName.validation.constraints.NotEmpty.message}")
+    @Size(min = 2, max = 50, message = "{user.lastName.validation.constraints.Size.message}")
+    private String lastName;
 
     @NotEmpty(message = "{user.email.validation.constraints.NotEmpty.message}")
     @Email(message = "{user.email.validation.constraints.Email.message}")
