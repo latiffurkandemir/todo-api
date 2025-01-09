@@ -3,6 +3,8 @@ package com.todoapp.todo_api.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.sql.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -30,7 +32,24 @@ public class UserEntity extends BaseEntity {
     private List<CategoryEntity> categoryEntityList;
 
     @ToString.Exclude
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<TaskEntity> taskEntityList;
 
+    public void addTask(TaskEntity task) {
+        if (taskEntityList == null) {
+            taskEntityList = new ArrayList<>();
+        }
+
+        taskEntityList.add(task);
+        task.setUser(this);
+    }
+
+    public void addCategory(CategoryEntity category) {
+        if (categoryEntityList == null) {
+            categoryEntityList = new ArrayList<>();
+        }
+
+        categoryEntityList.add(category);
+        category.setUser(this);
+    }
 }

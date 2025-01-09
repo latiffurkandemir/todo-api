@@ -3,6 +3,7 @@ package com.todoapp.todo_api.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -13,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CategoryEntity extends BaseEntity{
+public class CategoryEntity extends BaseEntity {
 
     @Column(name = "category_name")
     private String name;
@@ -30,4 +31,12 @@ public class CategoryEntity extends BaseEntity{
             cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH}, fetch = FetchType.LAZY)
     private List<TaskEntity> taskEntityList;
 
+    public void addTask(TaskEntity task) {
+        if (taskEntityList == null) {
+            taskEntityList = new ArrayList<>();
+        }
+
+        taskEntityList.add(task);
+        task.setCategory(this);
+    }
 }
