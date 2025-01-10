@@ -1,10 +1,8 @@
 package com.todoapp.todo_api.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.todoapp.todo_api.enums.Role;
+import jakarta.validation.constraints.*;
 import lombok.*;
 
 @Getter
@@ -29,10 +27,12 @@ public class UserDTO extends BaseDTO {
 
     @NotEmpty(message = "{user.password.validation.constraints.NotEmpty.message}")
     @Size(min = 8, max = 20, message = "{user.password.validation.constraints.Size.message}")
-    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$",
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,20}$",
             message = "{user.password.validation.constraints.Pattern.message}")
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
+//    @NotNull(message = "{user.role.validation.constraints.NotNull.message}")
+    private Role role;
 
 }

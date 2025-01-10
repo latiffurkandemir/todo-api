@@ -38,6 +38,7 @@ public class TaskEntity extends BaseEntity{
     private CategoryEntity category;
 
     @Column(name = "is_deleted")
+    @Builder.Default
     private boolean isDeleted = false;
 
     @PrePersist
