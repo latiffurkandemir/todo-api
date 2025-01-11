@@ -36,7 +36,6 @@ public class TaskMapper {
         taskDTO.setStatus(task.getStatus());
         taskDTO.setDeleted(task.isDeleted());
 
-        taskDTO.setUserId(task.getUser() != null ? task.getUser().getId() : null);
         taskDTO.setCategoryId(task.getCategory() != null ? task.getCategory().getId() : null);
 
         return taskDTO;

@@ -28,8 +28,6 @@ public class CategoryMapper {
         categoryDTO.setName(category.getName());
         categoryDTO.setDescription(category.getDescription());
 
-        categoryDTO.setUserId(category.getUser() != null ? category.getUser().getId() : null);
-
         return categoryDTO;
     }
 }
