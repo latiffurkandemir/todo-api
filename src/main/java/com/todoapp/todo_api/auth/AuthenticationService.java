@@ -14,6 +14,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
@@ -30,8 +33,10 @@ public class AuthenticationService {
 
         String encodedPassword = passwordEncoder.encode(userDTO.getPassword());
         UserEntity user = UserMapper.toEntity(userDTO, encodedPassword);
-        userRepository.save(user);
-        String jwtToken = jwtService.generateToken(user);
+        UserEntity savedUser = userRepository.save(user);
+        Map<String, Object> extraClaims = new HashMap<>();
+        extraClaims.put("userId", savedUser.getId());
+        String jwtToken = jwtService.generateToken(extraClaims, user);
 
         return AuthenticationResponse.builder()
                 .token(jwtToken)
@@ -45,7 +50,9 @@ public class AuthenticationService {
         if (!passwordEncoder.matches(loginDTO.getPassword(), user.getPassword())) {
             throw new AuthenticationException();
         }
-        String jwtToken = jwtService.generateToken(user);
+        Map<String, Object> extraClaims = new HashMap<>();
+        extraClaims.put("userId", user.getId());
+        String jwtToken = jwtService.generateToken(extraClaims, user);
 
         return AuthenticationResponse.builder()
                 .token(jwtToken)

@@ -33,6 +33,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         final String authHeader = request.getHeader("Authorization");
         final String token;
         final String userEmail;
+        final Long userId;
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);//if we don't have these 2 conditions, do filter for next request and response
             return;
@@ -40,6 +41,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         //take token from request(authorization) header
         token = authHeader.substring(7); //(Bearer ) count is 7
         userEmail = jwtService.extractUsername(token);
+        userId = jwtService.extractClaim(token, claims -> claims.get("userId", Long.class));
         if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {//if user is not authenticated(connected) yet
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
             if (jwtService.isTokenValid(token, userDetails)) {
@@ -51,6 +53,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 authToken.setDetails(
                         new WebAuthenticationDetailsSource().buildDetails(request)
                 );
+                authToken.setDetails(userId);//added user id to authentication details
                 //update SecurityContextHolder
                 SecurityContextHolder.getContext().setAuthentication(authToken);//authenticated user information
             }

@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 
 public class AuthenticationUtils {
 
@@ -22,4 +23,14 @@ public class AuthenticationUtils {
         }
         return authentication.getName();
     }
+
+    public static Long getCurrentUserId() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication == null || !authentication.isAuthenticated()) {
+            throw new RuntimeException("Unauthorized access");
+        }
+        return (Long) authentication.getDetails();
+    }
 }
+
