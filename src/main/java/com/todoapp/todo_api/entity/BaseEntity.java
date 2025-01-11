@@ -36,11 +36,11 @@ public abstract class BaseEntity implements Serializable {
     private String createdBy;
 
     @LastModifiedDate
-    @Column(name = "updated_at", insertable = false, nullable = false)
+    @Column(name = "updated_at", insertable = false)
     private LocalDateTime updatedAt;
 
     @LastModifiedBy
-    @Column(name = "updated_by", insertable = false, nullable = false)
+    @Column(name = "updated_by", insertable = false)
     private String updatedBy;
 
     @PrePersist
