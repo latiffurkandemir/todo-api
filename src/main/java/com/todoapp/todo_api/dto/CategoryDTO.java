@@ -1,7 +1,6 @@
 package com.todoapp.todo_api.dto;
 
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
@@ -18,8 +17,5 @@ public class CategoryDTO extends BaseDTO {
 
     @Size(max = 100, message = "{category.description.validation.constraints.Size.message}")
     private String description;
-
-    @NotNull(message = "{category.userId.validation.constraints.NotNull.message}")
-    private Long userId;
 
 }

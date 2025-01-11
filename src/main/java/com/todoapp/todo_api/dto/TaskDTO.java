@@ -29,9 +29,6 @@ public class TaskDTO extends BaseDTO{
     @NotNull(message = "{task.status.validation.constraints.NotNull.message}")
     private TaskStatus status;
 
-    @NotNull(message = "{task.userId.validation.constraints.NotNull.message}")
-    private Long userId;
-
     private Long categoryId;
 
     private boolean isDeleted;
