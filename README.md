@@ -107,7 +107,7 @@ src/main/java/com/todoapp/todo_api
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/your-username/todo-api.git
+git clone https://github.com/latiffurkandemir/todo-api.git
 cd todo-api
 ```
 
