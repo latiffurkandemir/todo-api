@@ -1,7 +1,6 @@
 package com.todoapp.todo_api.exception;
 
 import com.todoapp.todo_api.common.ErrorResponse;
-import com.todoapp.todo_api.common.Response;
 import com.todoapp.todo_api.constants.ErrorMessages;
 import com.todoapp.todo_api.factory.ResponseFactory;
 import jakarta.servlet.http.HttpServletRequest;
@@ -41,18 +40,29 @@ public class GlobalExceptionHandler {
         );
     }
 
+    @ExceptionHandler(CategoryNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleCategoryNotFoundException(HttpServletRequest request) {
+        return ResponseFactory.createErrorResponse(
+                "404",
+                "Category not found",
+                request.getRequestURI(),
+                HttpStatus.NOT_FOUND
+        );
+    }
+
+
     @ExceptionHandler(NoSuchElementException.class)
     public ResponseEntity<ErrorResponse> handleNoSuchElementException(NoSuchElementException ex, HttpServletRequest request) {
         return ResponseFactory.createErrorResponse(
                 "404",
-                "Task bulunamadı",
+                "Task not found",
                 request.getRequestURI(),
                 HttpStatus.NOT_FOUND
         );
     }
 
     @ExceptionHandler(CategoryAlreadyExistsException.class)
-    public ResponseEntity<ErrorResponse> handleCategoryAlreadyExistsException(CategoryAlreadyExistsException exception, HttpServletRequest request) {
+    public ResponseEntity<ErrorResponse> handleCategoryAlreadyExistsException(HttpServletRequest request) {
 
         return ResponseFactory.createErrorResponse(
                 ErrorMessages.CATEGORY_ALREADY_EXISTS_ERROR,
@@ -64,7 +74,7 @@ public class GlobalExceptionHandler {
 
 
     @ExceptionHandler(AuthenticationException.class)
-    public ResponseEntity<ErrorResponse> handleAuthenticationException(AuthenticationException exception, HttpServletRequest request) {
+    public ResponseEntity<ErrorResponse> handleAuthenticationException(HttpServletRequest request) {
         return ResponseFactory.createErrorResponse(
                 ErrorMessages.AUTHENTICATION_ERROR,
                 ErrorMessages.AUTHENTICATION_MESSAGE,
@@ -74,7 +84,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleUserNotFoundException(UserNotFoundException exception, HttpServletRequest request) {
+    public ResponseEntity<ErrorResponse> handleUserNotFoundException(HttpServletRequest request) {
         return ResponseFactory.createErrorResponse(
                 ErrorMessages.USER_NOT_FOUND_ERROR,
                 ErrorMessages.USER_NOT_FOUND_MESSAGE,
@@ -84,7 +94,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(UserAlreadyExistsException.class)
-    public ResponseEntity<ErrorResponse> handleUserAlreadyExistsException(UserAlreadyExistsException exception, HttpServletRequest request) {
+    public ResponseEntity<ErrorResponse> handleUserAlreadyExistsException(HttpServletRequest request) {
         return ResponseFactory.createErrorResponse(
                 ErrorMessages.USER_ALREADY_EXISTS_ERROR,
                 ErrorMessages.USER_ALREADY_EXISTS_MESSAGE,

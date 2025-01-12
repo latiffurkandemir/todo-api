@@ -6,7 +6,7 @@ import com.todoapp.todo_api.entity.CategoryEntity;
 import com.todoapp.todo_api.entity.TaskEntity;
 import com.todoapp.todo_api.entity.UserEntity;
 import com.todoapp.todo_api.enums.TaskStatus;
-import com.todoapp.todo_api.exception.AuthenticationException;
+import com.todoapp.todo_api.exception.CategoryNotFoundException;
 import com.todoapp.todo_api.exception.UserNotFoundException;
 import com.todoapp.todo_api.mapper.TaskMapper;
 import com.todoapp.todo_api.mapper.TaskResponseMapper;
@@ -33,7 +33,7 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     @Transactional
-//because we set a relation between taks, category and user here. If there is a problem at saving we can rollback relations
+//because we set a relation between tasks, category and user here. If there is a problem at saving, we can rollback relations
     public TaskResponseDTO createTask(TaskDTO taskDTO, Long userId) {
         TaskEntity task = TaskMapper.toEntity(taskDTO);
         UserEntity user = userRepository.findById(userId)
@@ -87,6 +87,22 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    public List<TaskResponseDTO> getAllTasksByCategory(String name, Long userId) {
+        CategoryEntity categoryEntity = categoryRepository.findByNameIgnoreCase(name)
+                .orElseThrow(() -> new CategoryNotFoundException());
+
+        if (!categoryEntity.getUser().getId().equals(userId)) {
+            throw new AccessDeniedException("User does not have permission to access this category.");
+        }
+        List<TaskEntity> taskEntityList = categoryEntity.getTaskEntityList();
+
+        return taskEntityList.stream()
+                .map(TaskResponseMapper::toResponseDTO)
+                .toList();
+    }
+
+    @Override
+    @Transactional
     public void moveToTrash(Long taskId, Long userId) {
         TaskEntity task = taskRepository.findById(taskId)
                 .orElseThrow(() -> new NoSuchElementException("This task doesn't exists"));

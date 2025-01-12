@@ -46,6 +46,12 @@ public class TaskController {
         return ResponseFactory.createResponse(taskService.getAllTasksByStatus(status, userId), HttpStatus.OK);
     }
 
+    @GetMapping("/category/{name}")
+    public ResponseEntity<Response<List<TaskResponseDTO>>> getlAllTasksByCategory(@PathVariable String name) {
+        Long userId = AuthenticationUtils.getCurrentUserId();
+        return ResponseFactory.createResponse(taskService.getAllTasksByCategory(name, userId), HttpStatus.OK);
+    }
+
     @PutMapping("/trash/{id}")
     public ResponseEntity<Response<Void>> moveToTrash(@PathVariable Long id) {
         Long userId = AuthenticationUtils.getCurrentUserId();

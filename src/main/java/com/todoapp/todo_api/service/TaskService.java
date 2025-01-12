@@ -15,6 +15,8 @@ public interface TaskService {
 
     List<TaskResponseDTO> getAllTasksByStatus(TaskStatus status, Long userId);
 
+    List<TaskResponseDTO> getAllTasksByCategory(String name, Long userId);
+
     void moveToTrash(Long taskId, Long userId);
 
     TaskResponseDTO updateTaskById(@Valid TaskDTO taskDTO, Long userId);
