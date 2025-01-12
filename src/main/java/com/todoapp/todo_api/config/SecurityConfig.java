@@ -36,9 +36,9 @@ public class SecurityConfig {
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)//we are creating session as STATELESS, spring will create new session for each request
                 )
-                .authenticationProvider(authenticationProvider) // Custom AuthenticationProvider ekleniyor
+                .authenticationProvider(authenticationProvider) // added Custom AuthenticationProvider
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class); //we are using jwtFilter here before UsernamePasswordAuthenticationFilter
-
+        //jwt will accept every request as the first filter
         return httpSecurity.build();
     }
 }

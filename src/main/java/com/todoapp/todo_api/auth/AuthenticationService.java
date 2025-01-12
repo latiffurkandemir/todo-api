@@ -35,7 +35,7 @@ public class AuthenticationService {
         UserEntity user = UserMapper.toEntity(userDTO, encodedPassword);
         UserEntity savedUser = userRepository.save(user);
         Map<String, Object> extraClaims = new HashMap<>();
-        extraClaims.put("userId", savedUser.getId());
+        extraClaims.put("userId", savedUser.getId());//to use in every request
         String jwtToken = jwtService.generateToken(extraClaims, user);
 
         return AuthenticationResponse.builder()
