@@ -47,6 +47,7 @@ public class UserEntity extends BaseEntity implements UserDetails {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<TaskEntity> taskEntityList;
 
+
     @PrePersist
     public void setDefaultRole() {
         if (this.role == null) {

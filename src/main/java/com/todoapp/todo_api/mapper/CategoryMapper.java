@@ -5,7 +5,7 @@ import com.todoapp.todo_api.entity.CategoryEntity;
 
 public class CategoryMapper {
 
-    public CategoryEntity toEntity(CategoryDTO categoryDTO) {
+    public static CategoryEntity toEntity(CategoryDTO categoryDTO) {
 
         CategoryEntity category = new CategoryEntity();
 
@@ -13,13 +13,15 @@ public class CategoryMapper {
         category.setCreatedAt(categoryDTO.getCreatedAt());
         category.setUpdatedAt(categoryDTO.getUpdatedAt());
         category.setName(categoryDTO.getName());
-        categoryDTO.setDescription(categoryDTO.getDescription());
+        category.setDescription(categoryDTO.getDescription());
 
         return category;
     }
 
-    public CategoryDTO toDTO(CategoryEntity category) {
-
+    public static CategoryDTO toDTO(CategoryEntity category) {
+        if (category == null) {
+            return null;
+        }
         CategoryDTO categoryDTO = new CategoryDTO();
 
         categoryDTO.setId(category.getId());

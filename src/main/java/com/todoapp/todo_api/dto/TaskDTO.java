@@ -1,5 +1,6 @@
 package com.todoapp.todo_api.dto;
 
+import com.todoapp.todo_api.entity.CategoryEntity;
 import com.todoapp.todo_api.enums.TaskStatus;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotEmpty;
@@ -26,7 +27,7 @@ public class TaskDTO extends BaseDTO{
     @Future(message = "{task.dueDate.validation.constraints.Future.message}")
     private LocalDateTime dueDate;
 
-    @NotNull(message = "{task.status.validation.constraints.NotNull.message}")
+//    @NotNull(message = "{task.status.validation.constraints.NotNull.message}")
     private TaskStatus status;
 
     private Long categoryId;

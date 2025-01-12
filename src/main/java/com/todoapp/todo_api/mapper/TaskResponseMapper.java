@@ -17,7 +17,8 @@ public class TaskResponseMapper {
         taskResponseDTO.setDescription(task.getDescription());
         taskResponseDTO.setDueDate(task.getDueDate());
         taskResponseDTO.setStatus(task.getStatus());
-        taskResponseDTO.setCategory(categoryMapper.toDTO(task.getCategory()));
+        taskResponseDTO.setCategory(task.getCategory() != null ? categoryMapper.toDTO(task.getCategory()):
+                null);
         taskResponseDTO.setDeleted(task.isDeleted());
         return taskResponseDTO;
     }

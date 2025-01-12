@@ -1,6 +1,7 @@
 package com.todoapp.todo_api.exception;
 
 import com.todoapp.todo_api.common.ErrorResponse;
+import com.todoapp.todo_api.common.Response;
 import com.todoapp.todo_api.constants.ErrorMessages;
 import com.todoapp.todo_api.factory.ResponseFactory;
 import jakarta.servlet.http.HttpServletRequest;
@@ -9,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import java.util.NoSuchElementException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -37,6 +40,28 @@ public class GlobalExceptionHandler {
                 HttpStatus.BAD_REQUEST
         );
     }
+
+    @ExceptionHandler(NoSuchElementException.class)
+    public ResponseEntity<ErrorResponse> handleNoSuchElementException(NoSuchElementException ex, HttpServletRequest request) {
+        return ResponseFactory.createErrorResponse(
+                "404",
+                "Task bulunamadı",
+                request.getRequestURI(),
+                HttpStatus.NOT_FOUND
+        );
+    }
+
+    @ExceptionHandler(CategoryAlreadyExistsException.class)
+    public ResponseEntity<ErrorResponse> handleCategoryAlreadyExistsException(CategoryAlreadyExistsException exception, HttpServletRequest request) {
+
+        return ResponseFactory.createErrorResponse(
+                ErrorMessages.CATEGORY_ALREADY_EXISTS_ERROR,
+                ErrorMessages.CATEGORY_ALREADY_EXISTS_MESSAGE,
+                request.getRequestURI(),
+                HttpStatus.CONFLICT
+        );
+    }
+
 
     @ExceptionHandler(AuthenticationException.class)
     public ResponseEntity<ErrorResponse> handleAuthenticationException(AuthenticationException exception, HttpServletRequest request) {

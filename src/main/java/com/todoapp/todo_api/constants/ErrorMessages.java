@@ -1,6 +1,8 @@
 package com.todoapp.todo_api.constants;
 
 public class ErrorMessages {
+
+
     private ErrorMessages() {
     }
 
@@ -15,4 +17,7 @@ public class ErrorMessages {
 
     public static final String INTERNAL_SERVER_ERROR = "Internal Server Error";
     public static final String INTERNAL_SERVER_ERROR_MESSAGE = "An unexpected error occurred. Please try again later.";
+
+    public static final String CATEGORY_ALREADY_EXISTS_ERROR = "Conflict";
+    public static final String CATEGORY_ALREADY_EXISTS_MESSAGE = "Category already exists";
 }
