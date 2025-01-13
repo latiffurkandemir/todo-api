@@ -25,6 +25,7 @@ public class SecurityConfig {
 
         httpSecurity
                 .csrf(csrf -> csrf.disable())
+                .cors(cors -> cors.configurationSource(request -> new org.springframework.web.cors.CorsConfiguration().applyPermitDefaultValues())) // activate CORS
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**",
                                 "/",
@@ -33,6 +34,7 @@ public class SecurityConfig {
                                 "/v3/api-docs/**").permitAll() //no need authentication for these request
                         .anyRequest().authenticated() // any other requests need authentication
                 )
+
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)//we are creating session as STATELESS, spring will create new session for each request
                 )
