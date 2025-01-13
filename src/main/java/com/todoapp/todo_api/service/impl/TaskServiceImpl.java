@@ -66,6 +66,9 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public List<TaskResponseDTO> getAllTasks(Long userId) {
         List<TaskEntity> taskList = taskRepository.findByUserId(userId);
+        if (taskList == null) {
+            throw new NoSuchElementException();
+        }
         return taskList.stream()
                 .map(TaskResponseMapper::toResponseDTO)
                 .toList();
